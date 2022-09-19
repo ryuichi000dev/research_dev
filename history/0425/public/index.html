@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8"/>
+    <script src="/socket.io/socket.io.js" ></script>
+    <script src="./javascripts/testclient.js" ></script>
+  </head>
+  <body>
+    
+    <p>音源の再生</p>
+
+    <input id="file1" type="file" accept=".mp3,.m4a,.aac,.wav,.flac">
+    <script>
+      window.addEventListener('load', () => {
+        const f = document.getElementById('file1');
+        f.addEventListener('change', evt => {
+          let input = evt.target;
+          if (input.files.length == 0) {
+            return;
+          }
+          const file = input.files[0];
+          if (!file.type.match('audio.*')) {
+            alert("音声ファイルを選択してください。");
+            return;
+          }
+          const reader = new FileReader();
+          reader.onload = () => {
+            var saisinid = reader.result;
+            var element = document.getElementById("saisin_id");
+            element.setAttribute("src", saisinid);
+          };
+          reader.readAsDataURL(file);
+        });
+      });
+
+    </script>
+
+    <p>
+      <audio id="saisin_id" src="" controls></audio>
+      <audio id="music" src="music.mp3" controls></audio>
+    </p>
+    
+    <p>録音</p>
+    <p>
+      <!-- onClick：クリックした際に起動する処理を指定できる -->
+      <button onClick="startRecording()">録音開始</button>
+      <button onClick="stopRecording()">録音停止</button>
+    </p>
+    
+  </body>
+</html>

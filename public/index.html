@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8"/>
+    <script src="/socket.io/socket.io.js" ></script>
+    <script src="./javascripts/client.js" ></script>
+  </head>
+  <body>
+    
+    <header>
+      <h1>Shadowing Player Plus</h1>
+      <p>ログイン</p>
+      <p>ヘルプ</p>
+    </header>
+
+    <input id="file1" type="file" accept=".mp3,.m4a,.aac,.wav,.flac">
+    <script>
+      window.addEventListener('load', () => {
+        const f = document.getElementById('file1');
+        f.addEventListener('change', evt => {
+          let input = evt.target;
+          if (input.files.length == 0) {
+            return;
+          }
+          const file = input.files[0];
+          if (!file.type.match('audio.*')) {
+            alert("音声ファイルを選択してください。");
+            return;
+          }
+          const reader = new FileReader();
+          reader.onload = () => {
+            var saisinid = reader.result;
+            var element = document.getElementById("saisin_id");
+            element.setAttribute("src", saisinid);
+          };
+          reader.readAsDataURL(file);
+        });
+      });
+
+
+
+    </script>
+
+    <p>
+      <audio id="saisin_id" src="music.mp3" ></audio>
+    </p>
+     
+    
+    <button id="btn_play">再生</button>
+    <button id="btn_pause">一時停止</button>
+    <p><time id="playback_position">0:30</time><input type="range" id="progress" value="0" min="0" step="1"><time id="end_position">1:24</time></p>
+    
+    <input id="repeat_count" type="number" value="3" min="1" max="10" step="1">
+  </body>
+</html>
