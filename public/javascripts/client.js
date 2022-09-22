@@ -53,6 +53,28 @@ function stopRecording() {
     
 }
 
+window.addEventListener('load', () => {
+  const f = document.getElementById('file1');
+  f.addEventListener('change', evt => {
+    let input = evt.target;
+    if (input.files.length == 0) {
+      return;
+    }
+    const file = input.files[0];
+    if (!file.type.match('audio.*')) {
+      alert("音声ファイルを選択してください。");
+      return;
+    }
+    const reader = new FileReader();
+    reader.onload = () => {
+      var saisinid = reader.result;
+      var element = document.getElementById("saisin_id");
+      element.setAttribute("src", saisinid);
+    };
+    reader.readAsDataURL(file);
+  });
+});
+
 
 window.addEventListener('DOMContentLoaded', function(){
 
@@ -60,7 +82,8 @@ window.addEventListener('DOMContentLoaded', function(){
     const btn_pause = document.getElementById("btn_pause");
     const playback_position = document.getElementById("playback_position");
     const end_position = document.getElementById("end_position");
-    const slider_progress = document.getElementById("progress");
+    // const slider_progress = document.getElementById("progress");
+    const slider_progress = document.getElementById("seekbar");
     const audioElement = document.querySelector("audio");
     var repeat_count = document.getElementById("repeat_count");
   
