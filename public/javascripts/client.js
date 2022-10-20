@@ -55,6 +55,7 @@ function stopRecording() {
 
 window.addEventListener('load', () => {
   const f = document.getElementById('file1');
+  const fileName = document.getElementById('fileName')
   f.addEventListener('change', evt => {
     let input = evt.target;
     if (input.files.length == 0) {
@@ -65,6 +66,7 @@ window.addEventListener('load', () => {
       alert("音声ファイルを選択してください。");
       return;
     }
+    fileName.textContent = file.name;
     const reader = new FileReader();
     reader.onload = () => {
       var saisinid = reader.result;
@@ -91,6 +93,8 @@ window.addEventListener('DOMContentLoaded', function(){
     var start_time;
     var stop_time;
     var rec_time;
+
+    var nowplaying = false; //!!!!!
   
     // 再生開始したときに実行
     const startTimer = function(){
@@ -181,16 +185,52 @@ window.addEventListener('DOMContentLoaded', function(){
     });
   
     // 再生ボタンが押されたときに実行
-    btn_play.addEventListener("click", e => {
-      audioElement.play();
-      startTimer();
-    });
+    // btn_play.addEventListener("click", e => {
+    //   document.getElementById("btn_play_image").src="/image/一時停止ボタン.png";
+    //   audioElement.play();
+    //   startTimer();
+    // });
   
-    // 一時停止ボタンが押されたときに実行
-    btn_pause.addEventListener("click", e => {
-      audioElement.pause();
-      stopTimer();
+    // // 一時停止ボタンが押されたときに実行
+    // btn_pause.addEventListener("click", e => {
+    //   audioElement.pause();
+    //   stopTimer();
+    // });
+
+
+    //再生・一時停止　　ーーー！！！ーーー
+    btn_play.addEventListener("click", e => {
+
+      // if (nowplaying == false) {
+      //   nowplaying = true;
+      //   document.getElementById("btn_play_image").src="/image/一時停止ボタン.png";
+      //   audioElement.play();
+      //   startTimer(); 
+      // } else if (nowplaying == true) {
+      //   nowplaying = false;
+      //   document.getElementById("btn_play_image").src="/image/再生ボタン.png";
+      //   audioElement.pause();
+      //   stopTimer();
+      // }
+
+      if (nowplaying === false) {
+        nowplaying = true;
+        let icon = this.document.querySelector('i')
+        icon.classList.replace('bi-play-fill', 'bi-pause-fill')
+        audioElement.play();
+        startTimer(); 
+      } else if (nowplaying === true) {
+        nowplaying = false;
+        let icon = this.document.querySelector('i')
+        icon.classList.replace('bi-pause-fill', 'bi-play-fill')
+        audioElement.pause();
+        stopTimer(); 
+      }
+      
     });
+
+
+
   
     // プログレスバーが操作されたときに実行（メモリを動かしているとき）
     slider_progress.addEventListener("input", e => {
@@ -210,9 +250,31 @@ window.addEventListener('DOMContentLoaded', function(){
     console.log(repeat_count.value);
 
     repeat_count.addEventListener("change", e => {
+      repeat_count = document.getElementById("repeat_count");
       console.log(repeat_count.value)
     });
   
 });
 
 
+
+//classを試す
+
+class Shadowing {
+  //newの時に自動的に呼ばれる（プロパティなどを初期化）
+  constructor() {
+
+  }
+
+  //プロパティ
+  playing = false;
+  repeat  = 1;
+  startPosition = 0000;
+  endPosition = 0130;
+  audioName = 'sample.mp3';
+
+  //メソッド
+  start() {
+
+  }
+}

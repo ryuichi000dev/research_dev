@@ -1,0 +1,39 @@
+.btn-play {
+    background-color: white;
+    border: 0px;
+    margin: auto;
+}
+
+#repeat_count {
+    padding: 0.5em 1em;
+}
+
+
+
+#file1 {
+    position: absolute;
+    opacity: 0;
+    width: 10px;
+}
+#fileName {
+    white-space: pre;
+    text-align: center;
+}
+.fileUploadBtn {
+    display: inline-block;
+    padding: 1rem 2rem;
+    margin: auto;
+    background: rgb(73, 73, 73);
+    color: #fff;
+    cursor: pointer;
+}
+.fileUploadBtn:hover,
+.fileUploadBtn:focus {
+    filter: brightness(1.2);
+}
+
+#main-content {
+    margin-top: 10em;
+    /* display: flex; */
+}
+

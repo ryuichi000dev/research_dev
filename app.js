@@ -43,7 +43,6 @@ io.on('connection', (socket) => {
     // 録音停止の合図を受け取ったときの処理
     socket.on('stop', (data, ack) => {
         const f32array = toF32Array(buffer) //bufferをFloat32Arrayにする
-        //console.log(f32array)
         const name = `${String(Date.now())}.wav`
         const filename = `public/wav/${name}` //保存するファイル名を決める
         exportWAV(f32array, sampleRate, filename) //wavファイルを作成(下に関数定義)
